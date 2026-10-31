@@ -1,9 +1,16 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "../../validation/auth.schema";
+import { baseUrl } from "../../services/BaseURL";
+import toast from "react-hot-toast";
+import { useAuth } from "../../hooks/useAuth";
 
 const Login = () => {
+  const { login } = useAuth();
+
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -13,9 +20,57 @@ const Login = () => {
   });
 
   const handleLogin = async (data) => {
-    console.log("Login Data:", data);
+    try {
+      const formData = new URLSearchParams();
+      formData.append("username", data.username);
+      formData.append("password", data.password);
 
-    // TODO
+      const res = await fetch(`${baseUrl}/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: formData,
+      });
+
+      if (!res.ok) {
+        toast.error("Username or password is incorrect!");
+        return;
+      }
+
+      const responseData = await res.json();
+      const accessToken = responseData?.access_token;
+
+      if (!accessToken) {
+        toast.error("Login failed. Please try again!");
+        return;
+      }
+
+      const userRes = await fetch(`${baseUrl}/auth/user-details`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (!userRes.ok) {
+        toast.error("Unable to retrieve user information!");
+        return;
+      }
+
+      const userData = await userRes.json();
+
+      if (userData?.id) {
+        login(accessToken, userData);
+
+        toast.success("Login successful!");
+        navigate("/");
+      } else {
+        toast.error("Unable to verify user!");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      toast.error("Something went wrong. Please try again!");
+    }
   };
 
   return (

@@ -1,9 +1,16 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+
+import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
+import { useAuth } from "../../hooks/useAuth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema } from "../../validation/auth.schema";
 
 const Signup = () => {
+  const navigate = useNavigate();
+
+  const { register: registerUser } = useAuth();
+
   const {
     register,
     handleSubmit,
@@ -13,9 +20,19 @@ const Signup = () => {
   });
 
   const handleRegister = async (data) => {
-    console.log("Register Data:", data);
+    console.log(data);
 
-    // TODO
+    try {
+      await registerUser({ ...data, role: "user" });
+
+      toast.success("Account created successfully!");
+
+      navigate("/login");
+    } catch (error) {
+      console.error("Registration error:", error);
+
+      toast.error(error.message || "Registration failed!");
+    }
   };
 
   return (
@@ -36,7 +53,6 @@ const Signup = () => {
         </div>
 
         <fieldset className="fieldset">
-          {/* Username */}
           <label className="label text-base-content">Username</label>
 
           <input
@@ -52,7 +68,6 @@ const Signup = () => {
             <p className="text-error text-sm">{errors.username.message}</p>
           )}
 
-          {/* First Name & Last Name */}
           <div className="grid grid-cols-2 gap-3 mt-3">
             <div>
               <label className="label text-base-content">First Name</label>
@@ -61,14 +76,14 @@ const Signup = () => {
                 type="text"
                 placeholder="First name"
                 className={`input input-bordered w-full ${
-                  errors.firstName ? "input-error" : ""
+                  errors.firstname ? "input-error" : ""
                 }`}
-                {...register("firstName")}
+                {...register("firstname")}
               />
 
-              {errors.firstName && (
+              {errors.firstname && (
                 <p className="text-error text-sm mt-1">
-                  {errors.firstName.message}
+                  {errors.firstname.message}
                 </p>
               )}
             </div>
@@ -80,20 +95,19 @@ const Signup = () => {
                 type="text"
                 placeholder="Last name"
                 className={`input input-bordered w-full ${
-                  errors.lastName ? "input-error" : ""
+                  errors.lastname ? "input-error" : ""
                 }`}
-                {...register("lastName")}
+                {...register("lastname")}
               />
 
-              {errors.lastName && (
+              {errors.lastname && (
                 <p className="text-error text-sm mt-1">
-                  {errors.lastName.message}
+                  {errors.lastname.message}
                 </p>
               )}
             </div>
           </div>
 
-          {/* Email */}
           <label className="label text-base-content mt-3">Email</label>
 
           <input
@@ -109,7 +123,6 @@ const Signup = () => {
             <p className="text-error text-sm">{errors.email.message}</p>
           )}
 
-          {/* Password */}
           <label className="label text-base-content mt-3">Password</label>
 
           <input
@@ -125,7 +138,6 @@ const Signup = () => {
             <p className="text-error text-sm">{errors.password.message}</p>
           )}
 
-          {/* Submit */}
           <button
             type="submit"
             disabled={isSubmitting}
