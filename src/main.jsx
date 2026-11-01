@@ -1,10 +1,11 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+
 import "./index.css";
 
+import { Toaster } from "react-hot-toast";
 import { router } from "./routes/Rroutes.jsx";
 import { RouterProvider } from "react-router/dom";
-import { Toaster } from "react-hot-toast";
 import AuthProvider from "./providers/AuthProvider.jsx";
 
 createRoot(document.getElementById("root")).render(
