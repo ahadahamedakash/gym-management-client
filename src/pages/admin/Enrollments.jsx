@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 import PageHeader from "../../components/dashboard/PageHeader";
+
 import { useAuth } from "../../hooks/useAuth";
 import { baseUrl } from "../../services/BaseURL";
 
@@ -116,7 +117,6 @@ const Enrollments = () => {
         description="View and manage gym membership enrollments."
       />
 
-      {/* Filter */}
       <div className="flex flex-col sm:flex-row justify-between gap-3 mb-6">
         <div>
           <h3 className="font-semibold text-lg">All Enrollments</h3>
@@ -140,7 +140,6 @@ const Enrollments = () => {
         </select>
       </div>
 
-      {/* Table */}
       {loading ? (
         <div className="flex justify-center items-center min-h-75">
           <span className="loading loading-spinner loading-lg text-primary" />
@@ -164,10 +163,8 @@ const Enrollments = () => {
               <tbody>
                 {enrollments.map((enrollment) => (
                   <tr key={enrollment.id}>
-                    {/* ID */}
                     <td className="font-medium">#{enrollment.id}</td>
 
-                    {/* User */}
                     <td>
                       <div className="font-semibold">
                         {enrollment.user?.name || "Unknown"}
@@ -178,7 +175,6 @@ const Enrollments = () => {
                       </div>
                     </td>
 
-                    {/* Subscription */}
                     <td>
                       <div className="font-medium">
                         {enrollment.subscription?.name || "Unknown"}
@@ -189,7 +185,6 @@ const Enrollments = () => {
                       </div>
                     </td>
 
-                    {/* Price */}
                     <td className="font-medium whitespace-nowrap">
                       ৳
                       {Number(
@@ -197,17 +192,14 @@ const Enrollments = () => {
                       ).toLocaleString("en-BD")}
                     </td>
 
-                    {/* Start Date */}
                     <td className="whitespace-nowrap">
                       {formatDate(enrollment.start_date)}
                     </td>
 
-                    {/* End Date */}
                     <td className="whitespace-nowrap">
                       {formatDate(enrollment.end_date)}
                     </td>
 
-                    {/* Status */}
                     <td>{getStatusBadge(enrollment.status)}</td>
                   </tr>
                 ))}
@@ -215,7 +207,6 @@ const Enrollments = () => {
             </table>
           </div>
 
-          {/* Pagination */}
           {pagination && pagination.total_pages > 1 && (
             <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mt-6">
               <p className="text-sm text-base-content/60">

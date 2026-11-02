@@ -1,18 +1,18 @@
 import { createBrowserRouter } from "react-router";
 
 import Home from "../pages/Home";
-import Users from "../pages/admin/Users";
 import Login from "../pages/auth/Login";
+import Users from "../pages/admin/Users";
 import Signup from "../pages/auth/Signup";
 import ProtectedRoute from "./ProtectedRoute";
 import UserLayout from "../layouts/UserLayout";
 import AdminLayout from "../layouts/AdminLayout";
-import AdminDashboard from "../pages/admin/AdminDashboard";
-import Subscriptions from "../pages/admin/Subscriptions";
-import UserDashboard from "../pages/user/UserDashboard";
-import AvailableSubscriptions from "../pages/user/AvailableSubscriptions";
-import MySubscriptions from "../pages/user/MySubscriptions";
 import Enrollments from "../pages/admin/Enrollments";
+import UserDashboard from "../pages/user/UserDashboard";
+import Subscriptions from "../pages/admin/Subscriptions";
+import AdminDashboard from "../pages/admin/AdminDashboard";
+import MySubscriptions from "../pages/user/MySubscriptions";
+import AvailableSubscriptions from "../pages/user/AvailableSubscriptions";
 
 export const router = createBrowserRouter([
   {

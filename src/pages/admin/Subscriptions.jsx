@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
+import Modal from "../../components/common/Modal";
 import PageHeader from "../../components/dashboard/PageHeader";
 import SubscriptionCard from "../../components/subscriptions/SubscriptionCard";
 import SubscriptionModal from "../../components/subscriptions/SubscriptionModal";
-import Modal from "../../components/common/Modal";
 
 import { useAuth } from "../../hooks/useAuth";
 import { baseUrl } from "../../services/BaseURL";
@@ -24,6 +24,7 @@ const Subscriptions = () => {
   const [searchInput, setSearchInput] = useState("");
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
+  const [sortby, setSortby] = useState("asc");
 
   const [refresh, setRefresh] = useState(0);
 
@@ -53,6 +54,7 @@ const Subscriptions = () => {
         const params = new URLSearchParams({
           page: String(page),
           limit: String(LIMIT),
+          sort_by: sortby,
         });
 
         if (search) {
@@ -101,7 +103,7 @@ const Subscriptions = () => {
       ignore = true;
       controller.abort();
     };
-  }, [accessToken, page, search, statusFilter, refresh]);
+  }, [accessToken, page, search, statusFilter, refresh, sortby]);
 
   const handleCreate = () => {
     setSelectedSubscription(null);
@@ -183,6 +185,7 @@ const Subscriptions = () => {
     setSearchInput("");
     setSearch("");
     setStatusFilter("all");
+    setSortby("asc");
     setPage(1);
   };
 
@@ -211,6 +214,19 @@ const Subscriptions = () => {
         />
 
         <select
+          value={sortby}
+          onChange={(e) => {
+            setSortby(e.target.value);
+            setPage(1);
+            setLoading(true);
+          }}
+          className="select select-bordered w-full sm:w-44"
+        >
+          <option value="asc">Price: Low to High</option>
+          <option value="desc">Price: High to Low</option>
+        </select>
+
+        <select
           value={statusFilter}
           onChange={(e) => {
             setStatusFilter(e.target.value);
@@ -223,7 +239,7 @@ const Subscriptions = () => {
           <option value="inactive">Inactive</option>
         </select>
 
-        {(searchInput || statusFilter !== "all") && (
+        {(searchInput || statusFilter !== "all" || sortby !== "asc") && (
           <button onClick={handleClearFilters} className="btn btn-ghost">
             Clear Filters
           </button>

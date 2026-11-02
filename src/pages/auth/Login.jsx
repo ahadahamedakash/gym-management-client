@@ -1,10 +1,12 @@
 import { Link, useNavigate } from "react-router";
+import toast from "react-hot-toast";
+
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "../../validation/auth.schema";
-import { baseUrl } from "../../services/BaseURL";
-import toast from "react-hot-toast";
+
 import { useAuth } from "../../hooks/useAuth";
+import { baseUrl } from "../../services/BaseURL";
 
 const Login = () => {
   const { login } = useAuth();
