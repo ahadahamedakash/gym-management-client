@@ -106,9 +106,9 @@ const Login = () => {
           <div className="flex items-center justify-between mt-3">
             <label className="label text-base-content">Password</label>
 
-            <Link to="/forgot-password" className="link link-primary text-sm">
+            {/* <Link to="/forgot-password" className="link link-primary text-sm">
               Forgot password?
-            </Link>
+            </Link> */}
           </div>
 
           <input

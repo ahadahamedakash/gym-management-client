@@ -198,7 +198,6 @@ const Subscriptions = () => {
         }
       />
 
-      {/* Search and Filter */}
       <div className="flex flex-col sm:flex-row gap-3 mb-6">
         <input
           type="search"
@@ -231,7 +230,6 @@ const Subscriptions = () => {
         )}
       </div>
 
-      {/* Subscription List */}
       {loading ? (
         <div className="flex justify-center items-center min-h-75">
           <span className="loading loading-spinner loading-lg text-primary" />
@@ -250,7 +248,6 @@ const Subscriptions = () => {
             ))}
           </div>
 
-          {/* Pagination */}
           {pagination && pagination.total_pages > 1 && (
             <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mt-8">
               <p className="text-sm text-base-content/60">
@@ -309,7 +306,6 @@ const Subscriptions = () => {
         </div>
       )}
 
-      {/* Create / Update Modal */}
       <SubscriptionModal
         open={modalOpen}
         onClose={handleModalClose}
@@ -317,14 +313,12 @@ const Subscriptions = () => {
         subscription={selectedSubscription}
       />
 
-      {/* Delete Confirmation Modal */}
       <Modal
         open={deleteModalOpen}
         onClose={handleDeleteModalClose}
         title="Delete Subscription"
       >
         <div className="space-y-5">
-          {/* Warning */}
           <div className="flex items-center gap-3">
             <div className="bg-error/10 text-error rounded-full p-3">
               <svg
@@ -352,7 +346,6 @@ const Subscriptions = () => {
             </div>
           </div>
 
-          {/* Subscription Details */}
           {subscriptionToDelete && (
             <div className="bg-base-200 rounded-lg p-4">
               <p className="font-semibold">{subscriptionToDelete.name}</p>
@@ -367,7 +360,6 @@ const Subscriptions = () => {
             This action cannot be undone.
           </p>
 
-          {/* Actions */}
           <div className="flex justify-end gap-2">
             <button
               type="button"

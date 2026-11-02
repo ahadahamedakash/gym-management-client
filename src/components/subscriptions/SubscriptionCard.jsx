@@ -4,6 +4,8 @@ const SubscriptionCard = ({
   onEdit,
   onDelete,
   onEnroll,
+  isEnrolled = false,
+  enrolling = false,
 }) => {
   const {
     name,
@@ -37,10 +39,6 @@ const SubscriptionCard = ({
           <span className="text-3xl font-bold">
             ৳{Number(price).toLocaleString("en-BD")}
           </span>
-          {/* <span className="text-sm text-base-content/50">
-            {" "}
-            / {duration_months} days
-          </span> */}
         </div>
 
         <p className="text-sm text-base-content/70">{description}</p>
@@ -65,10 +63,23 @@ const SubscriptionCard = ({
           ) : (
             <button
               onClick={() => onEnroll?.(subscription)}
-              disabled={status !== "active"}
-              className="btn btn-primary btn-block"
+              disabled={!is_active || isEnrolled || enrolling}
+              className={`btn btn-block ${
+                isEnrolled ? "btn-disabled" : "btn-success btn-ghost"
+              }`}
             >
-              Enroll Now
+              {enrolling ? (
+                <>
+                  <span className="loading loading-spinner loading-sm" />
+                  Enrolling...
+                </>
+              ) : isEnrolled ? (
+                "✓ Already Enrolled"
+              ) : !is_active ? (
+                "Unavailable"
+              ) : (
+                "Enroll Now"
+              )}
             </button>
           )}
         </div>
