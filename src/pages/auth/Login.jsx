@@ -33,11 +33,6 @@ const Login = () => {
         body: formData,
       });
 
-      if (!res.ok) {
-        toast.error("Username or password is incorrect!");
-        return;
-      }
-
       const responseData = await res.json();
       const accessToken = responseData?.access_token;
 
@@ -63,7 +58,12 @@ const Login = () => {
         login(accessToken, userData);
 
         toast.success("Login successful!");
-        navigate("/");
+
+        if (userData?.role === "user") {
+          navigate("/user");
+        } else if (userData?.role === "admin") {
+          navigate("/admin");
+        }
       } else {
         toast.error("Unable to verify user!");
       }

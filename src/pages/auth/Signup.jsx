@@ -20,10 +20,8 @@ const Signup = () => {
   });
 
   const handleRegister = async (data) => {
-    console.log(data);
-
     try {
-      await registerUser({ ...data, role: "user" });
+      await registerUser({ ...data, role: "admin" });
 
       toast.success("Account created successfully!");
 
