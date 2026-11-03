@@ -136,7 +136,7 @@ const Enrollments = () => {
           <option value="all">All Enrollments</option>
           <option value="active">Active</option>
           <option value="expired">Expired</option>
-          <option value="cancelled">Cancelled</option>
+          {/* <option value="cancelled">Cancelled</option> */}
         </select>
       </div>
 

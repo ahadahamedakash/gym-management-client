@@ -1,1 +1,1 @@
-export const baseUrl = "http://localhost:8000";
+export const baseUrl = "https://gym-management-p4g3.onrender.com";

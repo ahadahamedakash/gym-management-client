@@ -131,7 +131,7 @@ const MySubscriptions = () => {
           <option value="all">All Subscriptions</option>
           <option value="active">Active</option>
           <option value="expired">Expired</option>
-          <option value="cancelled">Cancelled</option>
+          {/* <option value="cancelled">Cancelled</option> */}
         </select>
       </div>
 
@@ -147,7 +147,7 @@ const MySubscriptions = () => {
                 <tr>
                   <th>#</th>
                   <th>Plan</th>
-                  <th>Price</th>
+                  {/* <th>Price</th> */}
                   <th>Start Date</th>
                   <th>End Date</th>
                   <th>Status</th>
@@ -168,7 +168,7 @@ const MySubscriptions = () => {
                         </div>
                       </td>
 
-                      <td>—</td>
+                      {/* <td>—</td> */}
 
                       <td>{formatDate(item.start_date)}</td>
 

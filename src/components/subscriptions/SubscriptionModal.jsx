@@ -63,7 +63,6 @@ const SubscriptionModal = ({ open, onClose, onSaved, subscription }) => {
         duration_months: Number(data.duration_months),
       };
 
-      // Only send is_active during update
       if (isEditMode) {
         payload.is_active = Boolean(data.is_active);
       }

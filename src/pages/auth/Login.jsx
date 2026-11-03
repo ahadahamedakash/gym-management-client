@@ -15,6 +15,7 @@ const Login = () => {
 
   const {
     register,
+    setValue,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({
@@ -73,6 +74,29 @@ const Login = () => {
       console.error("Login error:", error);
       toast.error("Something went wrong. Please try again!");
     }
+  };
+
+  const handleDemoLogin = (role) => {
+    const credentials = {
+      admin: {
+        username: "admin312",
+        password: "Admin1234",
+      },
+      user: {
+        username: "user312",
+        password: "User1234",
+      },
+    };
+
+    setValue("username", credentials[role].username, {
+      shouldValidate: true,
+    });
+
+    setValue("password", credentials[role].password, {
+      shouldValidate: true,
+    });
+
+    handleSubmit(handleLogin)();
   };
 
   return (
@@ -141,6 +165,28 @@ const Login = () => {
             )}
           </button>
         </fieldset>
+
+        <div className="divider text-base-content/50">OR</div>
+
+        <div className="grid grid-cols-2 gap-3">
+          <button
+            type="button"
+            disabled={isSubmitting}
+            onClick={() => handleDemoLogin("admin")}
+            className="btn btn-outline btn-primary"
+          >
+            Login as Admin
+          </button>
+
+          <button
+            type="button"
+            disabled={isSubmitting}
+            onClick={() => handleDemoLogin("user")}
+            className="btn btn-outline btn-secondary"
+          >
+            Login as User
+          </button>
+        </div>
 
         <p className="text-center text-sm text-base-content/60 mt-6">
           Don't have an account?{" "}

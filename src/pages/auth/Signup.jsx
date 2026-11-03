@@ -21,7 +21,7 @@ const Signup = () => {
 
   const handleRegister = async (data) => {
     try {
-      await registerUser({ ...data, role: "user" });
+      await registerUser(data);
 
       toast.success("Account created successfully!");
 
